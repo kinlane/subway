@@ -1,0 +1,8 @@
+{
+  "css.css": "metroflow-viewer.css",
+  "css.js": "css.js",
+  "editor.js": "editor.js",
+  "example_basic.js": "example_basic.js",
+  "metroflow.js": "metroflow.js",
+  "viewer.js": "viewer.js"
+}
