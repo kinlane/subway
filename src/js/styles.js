@@ -1,6 +1,6 @@
 
 var fillColor = "white";
-var strokeWidth = 8;
+var strokeWidth = 12;
 var stationRadius = 1*strokeWidth;
 var selectionColor = rgbToHex(0, 100, 0);
 
@@ -27,7 +27,7 @@ var TrackStyle = {
 
 
 var SegmentStyle = {
-    strokeColor: rgbToHex(255, 0, 0),
+    strokeColor: rgbToHex(0, 0, 0),
     strokeWidth: strokeWidth,
     selectionColor: selectionColor,
     fullySelected: false
