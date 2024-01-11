@@ -506,7 +506,7 @@ var Segment = {
 
 
 function createSegment(stationA, stationB, style) {
-    console.log('createSegment');
+    //console.log('createSegment');
     var observable = Object.create(util.Observable).Observable();
     var segment = Object.assign(observable, Segment);
     segment = segment.Segment(stationA, stationB, style);
@@ -554,13 +554,13 @@ var Map = {
         return this;
     },
     createTrack: function() {
-        console.log('map.createTrack()');
+        //console.log('map.createTrack()');
         var newTrack = metrotrack.createTrack();
         this.tracks.push(newTrack);
         return newTrack;
     },
     createConnection: function(stationA, stationB) {
-        console.log('map.createConnection()');
+        //console.log('map.createConnection()');
         if (stationA.id === stationB.id) {
             return null
         }
@@ -593,7 +593,7 @@ var Map = {
         return segments;
     },
     draw: function(drawSettings) {
-        console.time("map.draw");
+        //console.time("map.draw");
         project.clear();
         for (var i in this.tracks) {
             this.tracks[i].draw(drawSettings);
@@ -605,11 +605,11 @@ var Map = {
             var paths = [];
             if (!drawSettings.fast) {
                 paths = this.allPaths();
-                console.log("map.draw() paths.length", paths.length);
+                //console.log("map.draw() paths.length", paths.length);
             }
             this.drawStationNames(paths, drawSettings);
         }
-        console.timeEnd("map.draw");
+        //console.timeEnd("map.draw");
     },
     clear: function() {
         this.tracks = [];
@@ -748,7 +748,7 @@ var Track = {
         }
         this.stations.push(station);
         this.stationsMajor.push(station);
-        console.log('create station', station.id);
+        //console.log('create station', station.id);
         this.notifyAllObservers();
         return station;
     },
@@ -761,7 +761,7 @@ var Track = {
         return station;
     },
     createSegment: function(stationA, stationB) {
-        console.log('track.createSegment', stationA.id, stationB.id);
+        //console.log('track.createSegment', stationA.id, stationB.id);
         var segment = metrosegment.createSegment(stationA, stationB, this.segmentStyle);
         this.segments.push(segment);
         this.notifyAllObservers();
@@ -898,7 +898,7 @@ var Track = {
             if (!calcTextPositions) {
                 continue;
             } else {
-                console.log('recalc best text position');
+                //console.log('recalc best text position');
                 var positions = [];
                 positions.push(defaultPosition);
                 positions.push(new Point(-stationRadius - text.bounds.width, fontSize / 4.0));
@@ -972,11 +972,11 @@ var Track = {
         return null;
     },
     removeStation: function(id) {
-        console.log('track.removeStation() on track:', this.id);
+        //console.log('track.removeStation() on track:', this.id);
         function removeFromTrackState(track, id) {
             var station = track.findStation(id);
             if (station) {
-                console.log('track.removeStation()', station);
+                //console.log('track.removeStation()', station);
                 var pos = track.stations.indexOf(station);
                 if (pos > -1) {
                     station.notifyBeforeRemove();
@@ -1076,7 +1076,7 @@ styles = __webpack_require__(2);
 
 var Station = {
     Station: function(position, style) {
-        console.log('new station for point', position);
+        //console.log('new station for point', position);
         this.position = position;
         this.offsetFactor = null;
         this.style = style;
@@ -1224,7 +1224,7 @@ function createStationFree(position, style) {
 
 
 function createStationSegment(offsetFactor, style) {
-    console.log('createStationMinor');
+    //console.log('createStationMinor');
     var observable = Object.create(util.Observable).Observable();
     var station = Object.assign(observable, Station, StationPositionSegmentUser, StationPainter);
     station = station.Station(new Point(0, 0), style);
@@ -1235,7 +1235,7 @@ function createStationSegment(offsetFactor, style) {
 
 
 function createStationMinor(position, stationA, stationB, style) {
-    console.log('createStationMinor');
+    //console.log('createStationMinor');
     var observable = Object.create(util.Observable).Observable();
     var station = Object.assign(observable, Station, StationPositionSegmentAuto, StationMinorPainter);
     station = station.Station(position, style);
@@ -1336,7 +1336,7 @@ function saveMap(map) {
         var connectionData = createConnectionData(map.connections[i]);
         mapData.connections.push(connectionData);
     }
-    console.log(mapData);
+    //console.log(mapData);
     var mapJSONString = JSON.stringify(mapData);
     return mapJSONString;
 }
@@ -1411,7 +1411,7 @@ function createStationMinorData(station) {
 
 
 function loadMap(mapJSON) {
-    console.log('loadMap');
+    //console.log('loadMap');
     if (!mapJSON) {
         // mapJSON = '{"tracks":[{"id":"15479b48-a900-438b-a0fa-2da8c77729af","stations":[{"position":{"x":200,"y":165},"id":"b4212813","name":"station"},{"position":{"x":535,"y":424},"id":"adc99f13","name":"station"},{"position":{"x":806,"y":119},"id":"ebad26f4","name":"station"}],"stationsMinor":[{"position":{"x":274.22056274847716,"y":269.22056274847716},"id":"712c3721","name":"station","stationA":"b4212813","stationB":"adc99f13"},{"position":{"x":341.3700576850888,"y":336.3700576850888},"id":"fb50a4e2","name":"station","stationA":"b4212813","stationB":"adc99f13"},{"position":{"x":408.5195526217004,"y":403.5195526217004},"id":"6c52a2bb","name":"station","stationA":"b4212813","stationB":"adc99f13"},{"position":{"x":634.7959415460184,"y":354.2040584539816},"id":"2f8dadac","name":"station","stationA":"adc99f13","stationB":"ebad26f4"},{"position":{"x":697.5208152801713,"y":291.4791847198287},"id":"f99d3a55","name":"station","stationA":"adc99f13","stationB":"ebad26f4"},{"position":{"x":760.2456890143242,"y":228.7543109856758},"id":"61b3fb5a","name":"station","stationA":"adc99f13","stationB":"ebad26f4"}]},{"id":"e93fb48a-518f-4f29-aa6f-1e395233cc09","stations":[{"position":{"x":209,"y":104},"id":"ce3ea5bf","name":"station"},{"position":{"x":400,"y":104},"id":"2ce21052","name":"station"},{"position":{"x":928,"y":354},"id":"292957b8","name":"station"}],"stationsMinor":[{"position":{"x":272.6666666666667,"y":104},"id":"6fee351c","name":"station","stationA":"ce3ea5bf","stationB":"2ce21052"},{"position":{"x":336.3333333333333,"y":104},"id":"325fe14a","name":"station","stationA":"ce3ea5bf","stationB":"2ce21052"},{"position":{"x":542.2817459305202,"y":104},"id":"074eef3a","name":"station","stationA":"2ce21052","stationB":"292957b8"},{"position":{"x":684.5634918610405,"y":104},"id":"1fba151c","name":"station","stationA":"2ce21052","stationB":"292957b8"},{"position":{"x":820.3205448016022,"y":216.3205448016022},"id":"5a39e0ba","name":"station","stationA":"2ce21052","stationB":"292957b8"}]}]}'
         mapJSON = '{"tracks":[{"id":"3794c750-6605-49df-b810-aa5b0ebb42e8","segmentStyle":{"strokeColor":"red","strokeWidth":8,"selectionColor":"green","fullySelected":false},"stations":[{"position":{"x":152,"y":239},"id":"3fe7243d","name":"station"},{"position":{"x":687,"y":495},"id":"995a2376","name":"station"}],"stationsMinor":[]},{"id":"6fe22ae9-cd61-4705-aa2d-c457e11901e9","segmentStyle":{"strokeColor":"blue","strokeWidth":8,"selectionColor":"green","fullySelected":false},"stations":[{"position":{"x":174,"y":142},"id":"8cb86074","name":"station"},{"position":{"x":764,"y":433},"id":"882322b8","name":"station"}],"stationsMinor":[]}]}';
@@ -1429,7 +1429,7 @@ function loadMap(mapJSON) {
 
 
 function loadConnections(map, connectionData) {
-    console.log('load connections');
+    //console.log('load connections');
     var stationA = map.findStation(connectionData.stationA);
     var stationB = map.findStation(connectionData.stationB);
     var connection = map.createConnection(stationA, stationB);
@@ -1441,7 +1441,7 @@ function loadConnections(map, connectionData) {
 
 
 function loadTrack(map, trackData) {
-    console.log('load track');
+    //console.log('load track');
     var track = map.createTrack();
     track.id = trackData.id;
     track.setSegmentStyle(trackData.segmentStyle);
@@ -1455,7 +1455,7 @@ function loadTrack(map, trackData) {
 
 
 function loadSegment(map, track, segmentData) {
-    console.log('load segment');
+    //console.log('load segment');
     var stationAPoint = new Point(segmentData.stationA.position.x, segmentData.stationA.position.y);
     var stationBPoint = new Point(segmentData.stationB.position.x, segmentData.stationB.position.y);
     var stationA = map.findStation(segmentData.stationA.id);
@@ -1606,7 +1606,7 @@ var currentRevision = -1;
 
 
 function createRevision(map) {
-    console.log('createRevision');
+    //console.log('createRevision');
     currentRevision++;
     var mapDataString = serialize.saveMap(map);
     if (currentRevision >= revisions.length) {
@@ -1619,7 +1619,7 @@ function createRevision(map) {
         revisions.shift();
         currentRevision--;
     }
-    console.log('currentRevision', currentRevision);
+    //console.log('currentRevision', currentRevision);
 }
 
 
@@ -1682,9 +1682,10 @@ function setNewMap(newMap) {
     map = newMap;
 }
 
-function enableZoomOnCanvas(newMap) {
+function enableZoomOnCanvas(newMap,show) {
     map = newMap;
-    $("canvas").bind("wheel", function(event) {
+    //console.log("show: " + show);
+    $(show).bind("wheel", function(event) {
         var point = new Point(event.clientX, event.clientY);
         zoom(-event.originalEvent.deltaY, point);
 
@@ -1830,7 +1831,7 @@ function createStationElement(station, track) {
 
 
 function createSegmentElements(track) {
-    console.log('createSegmentElements');
+    //console.log('createSegmentElements');
     $(".segment").empty();
     var elements = [];
     for (var i in track.segments) {
@@ -1925,6 +1926,7 @@ $(initialise);
 
 
 function initialise() {
+
     MetroFlow.util.DisplaySettings.isDebug = isDebug;
 
     drawSettingsFull = MetroFlow.map.createDrawSettings();
@@ -1934,9 +1936,12 @@ function initialise() {
     drawSettingsFull.minorStationText = true;
 
     setLoadMapAction(loadMapClicked);
-    var newMap = MetroFlow.map.createMap();
-    setNewMap(newMap);
-    MetroFlow.zoom.enableZoomOnCanvas(newMap);
+
+    //var newMap = MetroFlow.map.createMap();
+    //setNewMap(newMap);
+    
+    //var show = 'canvas';
+    //MetroFlow.zoom.enableZoomOnCanvas(newMap,show);
 }
 
 
@@ -1950,38 +1955,27 @@ function resetState() {
 
 function setNewMap(newMap) {
     map = newMap;
-    MetroFlow.zoom.setNewMap(newMap);
-    MetroFlow.interaction.setCurrentMap(newMap);
+    //MetroFlow.zoom.setNewMap(newMap);
+    //MetroFlow.interaction.setCurrentMap(newMap);
 }
 
 
 function setLoadMapAction(callback) {
-    document.getElementById('file-input').addEventListener('change', callback, false);
+    document.getElementById('canvasone-wrapper').addEventListener('mousemove', callback, false);
+    document.getElementById('canvastwo-wrapper').addEventListener('mousemove', callback, false);   
 }
 
 
 function loadMapClicked(event) {
-    console.log('load map button clicked');
+    
+    //console.log('load map button clicked');
+    //console.log(event);
+    //console.log(this);
+    
     prepareLoadMap();
 
-    readSingleFile(event);
-
-    function readSingleFile(event) {
-        var file = event.target.files[0];
-        if (!file) {
-            return;
-        }
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            var contents = event.target.result;
-            displayContents(contents);
-        };
-        reader.readAsText(file);
-    }
-
-    function displayContents(contents) {
-        loadMapJson(JSON.parse(contents));
-    }
+    var contents = document.getElementById(this.id + '-store').value;
+    loadMapJson(JSON.parse(contents));
 }
 
 
@@ -2018,7 +2012,7 @@ function onMouseUp(event) {
 }
 
 function onMouseDrag(event) {
-    console.log('panning', event.delta);
+    //console.log('panning', event.delta);
     var offset = startPosition - event.point;
     paper.view.center = view.center.add(offset);
     return;
