@@ -2299,7 +2299,7 @@ function initialiseToolbarActions() {
         var newTrack = createTrack();
         MetroFlow.revision.createRevision(map);
         var segmentStyle = styles.createSegmentStyle();
-        segmentStyle.strokeColor = styles.rgbToHex(0, 0, 255);
+        segmentStyle.strokeColor = styles.rgbToHex(0, 0, 0);
         newTrack.segmentStyle = segmentStyle;
         setCurrentTrack(newTrack);
     }
